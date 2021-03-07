@@ -1,27 +1,23 @@
 package com.martin.jokes.vm.main
 
+import androidx.compose.runtime.mutableStateOf
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.viewModelScope
 import com.martin.jokes.models.Joke
+import com.martin.jokes.models.base.Result
 import com.martin.jokes.repos.main.MainRepository
-import com.martin.jokes.ui.navigators.main.MainActivityNavigator
-import com.martin.jokes.utils.BaseLiveData
 import com.martin.jokes.vm.base.BaseViewModel
-import com.martin.jokes.vm.base.disposeOnExit
-import kotlinx.coroutines.launch
 
 class MainViewModel @ViewModelInject constructor(private val mainRepository: MainRepository) :
-    BaseViewModel<MainActivityNavigator>() {
+    BaseViewModel() {
 
-    val jokes = BaseLiveData<MutableList<Joke>>()
+    val jokes = mutableStateOf<Result<MutableList<Joke>>>(Result.Empty())
 
     init {
         getJokes()
     }
 
-    fun getJokes() {
-        viewModelScope.launch {
-            mainRepository.getTenRandomJokes().consumeAndDispose(jokes)
-        }.disposeOnExit()
+    private fun getJokes() {
+        load(mainRepository::tenRandomJokes).into(jokes).start()
     }
+
 }

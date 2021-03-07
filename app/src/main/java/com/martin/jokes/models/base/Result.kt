@@ -1,39 +1,21 @@
 package com.martin.jokes.models.base
 
 
-class Result<T>(var status: Status, var data: T?, var throwable: Throwable?) {
-    companion object {
-        fun <T> success(data: T?): Result<T> {
-            return Result(
-                Status.SUCCESS,
-                data,
-                null
-            )
-        }
+sealed class Result<T>(open var data: T? = null) {
 
-        fun <T> error(throwable: Throwable?): Result<T> {
-            return Result(
-                Status.ERROR,
-                null,
-                throwable
-            )
-        }
+    data class Success<T>(override var data: T?) : Result<T>(data)
 
-        fun <T> loading(data: T?): Result<T> {
-            return Result(
-                Status.LOADING,
-                data,
-                null
-            )
-        }
+    data class Error<T>(
+        override var data: T? = null,
+        var throwable: Throwable? = null
+    ) : Result<T>(data)
 
-        fun <T> empty(data: T? = null): Result<T> {
-            return Result(
-                Status.EMPTY,
-                data,
-                null
-            )
-        }
+    data class Loading<T>(override var data: T? = null) : Result<T>(data)
+
+    data class Empty<T>(override var data: T? = null) : Result<T>(data)
+
+    fun dataOr(default: T): T {
+        return data ?: default
     }
 
     enum class Status {

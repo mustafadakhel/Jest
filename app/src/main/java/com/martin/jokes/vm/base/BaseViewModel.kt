@@ -1,56 +1,46 @@
 package com.martin.jokes.vm.base
 
 import androidx.databinding.ObservableBoolean
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.martin.jokes.models.base.Result
-import com.martin.jokes.ui.navigators.base.BaseNavigator
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import java.lang.ref.WeakReference
+import kotlinx.coroutines.withContext
 
 @Suppress("MemberVisibilityCanBePrivate")
-abstract class BaseViewModel<N : BaseNavigator> : ViewModel() {
+abstract class BaseViewModel : ViewModel() {
 
     val isLoading = ObservableBoolean(false)
 
     var jobs: MutableList<Job>? = mutableListOf()
 
-    private var refNavigator: WeakReference<N>? = null
-
-    private val requestsPool: MutableList<Int> = mutableListOf()
-
-    var navigator: N
-        get() = refNavigator?.get()!!
-        set(navigator) {
-            this.refNavigator = WeakReference(navigator)
-        }
-
     override fun onCleared() {
         jobs?.forEach { it.cancel() }
         jobs = null
-        refNavigator?.clear()
-        refNavigator = null
         super.onCleared()
     }
 
-    fun <T> Result<T>.consumeAndDispose(consumer: MutableLiveData<Result<T>>): Job {
-        consumer.value = Result.loading(consumer.value?.data)
-        return
-            consumer.value = this@consumeAndDispose
-        }.disposeOnExit()
+    fun <T> Request<T>.start() {
+        setLoading()
+        consumer?.value = Result.Loading()
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                request?.invoke()?.let {
+                    consumer?.value = it
+                    setLoading(false)
+                }
+            }
+        }
     }
 
-    fun Job.disposeOnExit(): Job {
-        if (jobs == null)
-            this.cancel()
-        else
-            jobs?.add(this)
-        return this
+    fun <T> load(call: suspend () -> Result<T>): Request<T> {
+        return Request<T>().load(call)
     }
 
-    private fun setLoading() {
-        isLoading.set(true)
+    protected fun setLoading(loading: Boolean = true) {
+        isLoading.set(loading)
     }
 }
+

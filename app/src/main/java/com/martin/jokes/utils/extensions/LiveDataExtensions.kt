@@ -3,34 +3,34 @@ package com.martin.jokes.utils.extensions
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.martin.jokes.models.base.Result
-import com.martin.jokes.utils.BaseLiveData
 import com.martin.jokes.utils.LiveStatus
+import com.martin.jokes.utils.ResultState
 
-operator fun <B, T : List<B>?> BaseLiveData<T?>.get(index: Int): B? {
-    return value?.data?.get(index)
+operator fun <B, T : List<B>?> ResultState<T?>.get(index: Int): B? {
+    return value.data?.get(index)
 }
 
 operator fun <B, T : List<B>?> LiveData<T?>.get(index: Int): B? {
     return value?.get(index)
 }
 
-fun <T> BaseLiveData<T>.setEmpty(): BaseLiveData<T> {
-    postValue(Result.empty())
+fun <T> ResultState<T>.setEmpty(): ResultState<T> {
+    value = Result.Empty()
     return this
 }
 
-fun <T> BaseLiveData<T>.setLoading(data: T? = null): BaseLiveData<T> {
-    postValue(Result.loading(data ?: value?.data))
+fun <T> ResultState<T>.setLoading(data: T? = null): ResultState<T> {
+    value = Result.Loading(data ?: value.data)
     return this
 }
 
-fun <T> BaseLiveData<T>.setSuccess(data: T? = null): BaseLiveData<T> {
-    postValue(Result.success(data ?: value?.data))
+fun <T> ResultState<T>.setSuccess(data: T? = null): ResultState<T> {
+    value = Result.Success(data ?: value.data)
     return this
 }
 
-fun <T> BaseLiveData<T>.setError(t: Throwable): BaseLiveData<T> {
-    postValue(Result.error(t))
+fun <T> ResultState<T>.setError(t: Throwable): ResultState<T> {
+    value = Result.Error(throwable = t)
     return this
 }
 

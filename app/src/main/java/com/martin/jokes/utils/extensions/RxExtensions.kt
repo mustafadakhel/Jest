@@ -11,11 +11,11 @@ import io.reactivex.schedulers.Schedulers
 fun <T> T?.mapToResult(): Result<T> {
     return this?.let { safeData: T ->
         if (safeData is Collection<*> && safeData.isEmpty())
-            Result.empty(safeData)
+            Result.Empty(safeData)
         else
-            Result.success(safeData)
+            Result.Success(safeData)
     } ?: run {
-        Result.error(Throwable("null response"))
+        Result.Error(throwable = Throwable("null response"))
     }
 }
 

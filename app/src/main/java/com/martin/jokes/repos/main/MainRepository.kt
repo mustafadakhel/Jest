@@ -15,8 +15,8 @@ import javax.inject.Singleton
 class MainRepository @Inject constructor(
     private val jokesApi: JokesApi,
 ) {
-    suspend fun getTenRandomJokes(): Result<MutableList<Joke>> {
-        return supervisedNetworkCall {
+    suspend fun tenRandomJokes(): Result<MutableList<Joke>> {
+        return supervisedCall {
             jokesApi
                 .getTenRandomJokes()
                 .mapToResult()
@@ -24,8 +24,8 @@ class MainRepository @Inject constructor(
     }
 }
 
-suspend fun <T> supervisedNetworkCall(block: suspend CoroutineScope.() -> Result<T>): Result<T> {
+suspend fun <T> supervisedCall(block: suspend CoroutineScope.() -> Result<T>): Result<T> {
     return withContext(IO + SupervisorJob()) {
-        runCatching { block() }.getOrElse { Result.error(it) }
+        runCatching { block() }.getOrElse { Result.Error(throwable = it) }
     }
 }

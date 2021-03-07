@@ -1,7 +1,7 @@
 package com.martin.jokes.di.modules
 
 import android.app.Activity
-import com.martin.jokes.ui.activities.base.BaseActivity
+import com.martin.jokes.ui.base.BaseActivity
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,8 +12,8 @@ import dagger.hilt.android.components.ActivityComponent
 class BaseActivityModule {
 
     @Provides
-    fun provideBaseActivity(activity: Activity): BaseActivity<*, *, *> {
-        check(activity is BaseActivity<*, *, *>) { "Every Activity is expected to extend BaseActivity" }
+    fun provideBaseActivity(activity: Activity): BaseActivity<*> {
+        check(activity is BaseActivity<*>) { "Every Activity is expected to extend BaseActivity" }
         return activity
     }
 }
