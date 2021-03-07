@@ -1,0 +1,68 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-parcelize'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+}
+apply from: "dependencies.gradle"
+
+android {
+    compileSdkVersion versions.compileSdk
+    buildToolsVersion versions.buildTools
+
+    compileSdkVersion versions.compileSdk
+
+    flavorDimensions "JokesApi"
+
+    buildFeatures {
+        dataBinding true
+        viewBinding true
+    }
+
+    defaultConfig {
+        applicationId "com.martin.jokes"
+        targetSdkVersion versions.targetSdk
+        multiDexEnabled true
+        resConfigs versions.resConfigs
+        renderscriptTargetApi versions.renderscriptTargetApi
+        renderscriptSupportModeEnabled true
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "HOST_URL", "\"https://official-joke-api.appspot.com/\"")
+    }
+
+    productFlavors {
+        production {
+            dimension "JokesApi"
+            minSdkVersion versions.productionMinSdk
+        }
+
+        development {
+            dimension "JokesApi"
+            minSdkVersion versions.developmentMinSdk
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            zipAlignEnabled true
+            debuggable false
+            shrinkResources true
+        }
+        debug {
+            debuggable true
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}

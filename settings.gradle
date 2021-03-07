@@ -1,0 +1,3 @@
+include ':simple-recycler'
+include ':app'
+rootProject.name = "Jokes"

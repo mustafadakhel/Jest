@@ -1,0 +1,40 @@
+apply from: "../common.gradle"
+apply from: "../versions.gradle"
+
+dependencies {
+
+    //retrofit
+    implementation "com.squareup.retrofit2:retrofit:$versions.retrofit"
+    implementation "com.squareup.retrofit2:converter-gson:$versions.retrofit"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$versions.retrofit"
+
+    //ok-http
+    implementation "com.squareup.okhttp3:okhttp:$versions.okHttp"
+    implementation "com.squareup.okhttp3:logging-interceptor:$versions.okHttp"
+
+    //gson
+    implementation "com.google.code.gson:gson:$versions.gson"
+
+    //lifecycle
+    implementation "androidx.lifecycle:lifecycle-extensions:$versions.lifecycleKtx"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycleKtx"
+
+    //rx
+    implementation "io.reactivex.rxjava2:rxandroid:$versions.rxAndroid"
+    implementation "io.reactivex.rxjava2:rxjava:$versions.rxJava"
+    implementation "com.github.akarnokd:rxjava2-extensions:$versions.rxjava2Extensions"
+
+    //coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-rx2:$versions.coroutines"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.coroutines"
+
+    //simple recycler
+    implementation project(path: ":simple-recycler")
+
+
+    //hilt
+    implementation "com.google.dagger:hilt-android:$versions.hilt"
+    kapt "com.google.dagger:hilt-android-compiler:$versions.hilt"
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$versions.hiltJitPack"
+    kapt "androidx.hilt:hilt-compiler:$versions.hiltJitPack"
+}
