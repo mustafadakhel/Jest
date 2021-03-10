@@ -5,11 +5,12 @@ import android.view.Window
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
+import com.martin.jokes.utils.extensions.vm
 import com.martin.jokes.vm.base.BaseViewModel
 
 abstract class BaseActivity : ComponentActivity() {
 
-    abstract val viewModel: BaseViewModel
+    open val viewModel: BaseViewModel by vm(BaseViewModel::class)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

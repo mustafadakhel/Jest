@@ -53,7 +53,7 @@ private fun quickToast(
     return Toast.makeText(context, text, duration)
 }
 
-fun <V : ViewModel> ComponentActivity.vm(model: KClass<V>): Lazy<V> {
+fun <V : ViewModel> ComponentActivity.vm(kClass: KClass<V>): Lazy<V> {
 
-    return ViewModelLazy(model, { viewModelStore }, { defaultViewModelProviderFactory })
+    return ViewModelLazy(kClass, { viewModelStore }, { defaultViewModelProviderFactory })
 }
