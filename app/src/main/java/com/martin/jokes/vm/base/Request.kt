@@ -1,7 +1,7 @@
 package com.martin.jokes.vm.base
 
 import androidx.compose.runtime.MutableState
-import com.martin.jokes.models.base.Result
+import com.martin.jokes.models.result.Result
 
 class Request<T> {
     var request: (suspend () -> Result<T>)? = null

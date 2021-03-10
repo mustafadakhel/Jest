@@ -2,7 +2,8 @@ package com.martin.jokes.repos.main
 
 import com.martin.jokes.api.JokesApi
 import com.martin.jokes.models.Joke
-import com.martin.jokes.models.base.Result
+import com.martin.jokes.models.result.Result
+import com.martin.jokes.utils.extensions.log
 import com.martin.jokes.utils.extensions.mapToResult
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
@@ -26,6 +27,9 @@ class MainRepository @Inject constructor(
 
 suspend fun <T> supervisedCall(block: suspend CoroutineScope.() -> Result<T>): Result<T> {
     return withContext(IO + SupervisorJob()) {
-        runCatching { block() }.getOrElse { Result.Error(throwable = it) }
+        runCatching { block() }.getOrElse {
+            it.log()
+            Result.Error(throwable = it)
+        }
     }
 }

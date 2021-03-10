@@ -1,4 +1,4 @@
-package com.martin.jokes.models.base
+package com.martin.jokes.models.result
 
 
 sealed class Result<T>(open var data: T? = null) {
@@ -18,10 +18,4 @@ sealed class Result<T>(open var data: T? = null) {
         return data ?: default
     }
 
-    enum class Status {
-        SUCCESS,
-        ERROR,
-        LOADING,
-        EMPTY
-    }
 }

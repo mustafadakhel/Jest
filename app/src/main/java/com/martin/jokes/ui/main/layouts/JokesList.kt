@@ -1,4 +1,4 @@
-package com.martin.jokes.ui.main
+package com.martin.jokes.ui.main.layouts
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues

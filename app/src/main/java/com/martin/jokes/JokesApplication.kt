@@ -6,7 +6,7 @@ import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
 class JokesApplication : Application() {
-    lateinit var context: Context
+    private lateinit var context: Context
 
     override fun attachBaseContext(base: Context) {
         context = base

@@ -1,4 +1,4 @@
-package com.martin.jokes.ui.main
+package com.martin.jokes.ui.main.layouts
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -24,7 +24,7 @@ fun JokeItem(
             },
         elevation = 4.dp
     ) {
-        Column() {
+        Column {
             Spacer(modifier = Modifier.fillMaxWidth().height(8.dp))
             Text(
                 text = joke.toString(),

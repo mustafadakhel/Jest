@@ -49,7 +49,7 @@ android {
     buildTypes {
         release {
             minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'jokes-proguard-rules.pro'
             zipAlignEnabled true
             debuggable false
             shrinkResources true

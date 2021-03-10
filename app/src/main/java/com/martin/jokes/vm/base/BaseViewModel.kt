@@ -4,11 +4,10 @@ import androidx.compose.runtime.MutableState
 import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.martin.jokes.models.base.Result
+import com.martin.jokes.models.result.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 @Suppress("MemberVisibilityCanBePrivate")
 abstract class BaseViewModel : ViewModel() {

@@ -1,13 +1,11 @@
 package com.martin.jokes.utils
 
 
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import javax.inject.Inject
 import javax.inject.Provider
 import javax.inject.Singleton
-import kotlin.reflect.KClass
 
 @Suppress("UNCHECKED_CAST")
 @Singleton
