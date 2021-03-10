@@ -4,17 +4,13 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
-import com.martin.jokes.utils.extensions.vm
 import com.martin.jokes.vm.base.BaseViewModel
-import kotlin.reflect.KClass
 
 
 @Suppress("MemberVisibilityCanBePrivate")
-abstract class BaseActivity<V : BaseViewModel> : ComponentActivity() {
+abstract class BaseActivity : ComponentActivity() {
 
-    protected val viewModel: V by vm(getViewModelClass())
-
-    abstract fun getViewModelClass(): KClass<V>
+    abstract val viewModel: BaseViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -12,8 +12,8 @@ import dagger.hilt.android.components.ActivityComponent
 class BaseActivityModule {
 
     @Provides
-    fun provideBaseActivity(activity: Activity): BaseActivity<*> {
-        check(activity is BaseActivity<*>) { "Every Activity is expected to extend BaseActivity" }
+    fun provideBaseActivity(activity: Activity): BaseActivity {
+        check(activity is BaseActivity) { "Every Activity is expected to extend BaseActivity" }
         return activity
     }
 }

@@ -17,7 +17,9 @@ class MainViewModel @ViewModelInject constructor(private val mainRepository: Mai
     }
 
     private fun getJokes() {
-        load(mainRepository::tenRandomJokes).into(jokes).start()
+        load(mainRepository::tenRandomJokes)
+            .into(jokes)
+            .start()
     }
 
 }

@@ -1,5 +1,6 @@
 package com.martin.jokes.vm.base
 
+import androidx.compose.runtime.MutableState
 import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -25,13 +26,11 @@ abstract class BaseViewModel : ViewModel() {
     fun <T> Request<T>.start() {
         setLoading()
         consumer?.value = Result.Loading()
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                request?.invoke()?.let {
-                    consumer?.value = it
-                    setLoading(false)
-                }
-            }
+        viewModelScope.launch(Dispatchers.IO) {
+            request
+                ?.invoke()
+                ?.putInto(consumer)
+            setLoading(false)
         }
     }
 
@@ -41,6 +40,10 @@ abstract class BaseViewModel : ViewModel() {
 
     protected fun setLoading(loading: Boolean = true) {
         isLoading.set(loading)
+    }
+
+    private fun <T> Result<T>?.putInto(consumer: MutableState<Result<T>>?) {
+        this?.let { consumer?.value = it }
     }
 }
 
