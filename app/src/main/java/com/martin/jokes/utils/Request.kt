@@ -1,4 +1,4 @@
-package com.martin.jokes.vm.base
+package com.martin.jokes.utils
 
 import com.martin.jokes.models.result.CallResult
 import kotlinx.coroutines.flow.MutableStateFlow

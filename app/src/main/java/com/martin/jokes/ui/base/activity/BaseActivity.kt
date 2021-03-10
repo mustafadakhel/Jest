@@ -1,12 +1,11 @@
-package com.martin.jokes.ui.base
+package com.martin.jokes.ui.base.activity
 
 import android.os.Bundle
 import android.view.Window
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
-import com.martin.jokes.utils.extensions.vm
-import com.martin.jokes.vm.base.BaseViewModel
+import com.martin.jokes.ui.base.vm.BaseViewModel
 
 abstract class BaseActivity : ComponentActivity() {
 

@@ -1,7 +1,7 @@
 package com.martin.jokes.di.modules
 
 import android.app.Activity
-import com.martin.jokes.ui.base.BaseActivity
+import com.martin.jokes.ui.base.activity.BaseActivity
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

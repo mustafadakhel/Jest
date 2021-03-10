@@ -1,4 +1,4 @@
-package com.martin.jokes.ui.main.layouts
+package com.martin.jokes.ui.base.layout
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Icon

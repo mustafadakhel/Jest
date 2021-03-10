@@ -1,10 +1,10 @@
-package com.martin.jokes.vm.main
+package com.martin.jokes.ui.main.vm
 
 import androidx.hilt.lifecycle.ViewModelInject
 import com.martin.jokes.models.Joke
 import com.martin.jokes.models.result.CallResult
 import com.martin.jokes.repos.main.MainRepository
-import com.martin.jokes.vm.base.BaseViewModel
+import com.martin.jokes.ui.base.vm.BaseViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Singleton
 
@@ -18,7 +18,7 @@ class MainViewModel @ViewModelInject constructor(private val mainRepository: Mai
 		getJokes()
 	}
 
-	private fun getJokes() {
+	fun getJokes() {
 		load(mainRepository::tenRandomJokes)
 			.into(jokes)
 			.start()
