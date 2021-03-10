@@ -10,7 +10,7 @@ import com.martin.jokes.vm.base.BaseViewModel
 
 abstract class BaseActivity : ComponentActivity() {
 
-    open val viewModel: BaseViewModel by vm(BaseViewModel::class)
+    abstract val viewModel: BaseViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

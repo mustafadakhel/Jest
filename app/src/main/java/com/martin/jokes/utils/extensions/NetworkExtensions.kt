@@ -1,14 +1,14 @@
 package com.martin.jokes.utils.extensions
 
-import com.martin.jokes.models.result.Result
+import com.martin.jokes.models.result.CallResult
 
-fun <T> T?.mapToResult(): Result<T> {
+fun <T> T?.mapToResult(): CallResult<T> {
     return this?.let { safeData: T ->
         if (safeData is Collection<*> && safeData.isEmpty())
-            Result.Empty(safeData)
+            CallResult.Empty(safeData)
         else
-            Result.Success(safeData)
+            CallResult.Success(safeData)
     } ?: run {
-        Result.Error(throwable = Throwable("null response"))
+        CallResult.Error(throwable = Throwable("null response"))
     }
 }
