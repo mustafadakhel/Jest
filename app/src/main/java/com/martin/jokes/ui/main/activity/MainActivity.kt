@@ -25,4 +25,3 @@ class MainActivity : BaseActivity(), MainPageListener {
         showToast(R.string.click)
     }
 }
-
