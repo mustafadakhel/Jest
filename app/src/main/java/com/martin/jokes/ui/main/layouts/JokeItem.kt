@@ -26,13 +26,13 @@ fun JokeItem(
         elevation = 4.dp
     ) {
         Column {
-            Spacer(modifier = Modifier.fillMaxWidth().height(8.dp))
+            Spacer(modifier = Modifier.fillMaxWidth().height(12.dp))
             Text(
                 text = joke.toString(),
                 modifier = Modifier.fillMaxWidth(0.9f).align(Alignment.CenterHorizontally),
                 textAlign = TextAlign.Center
             )
-            Spacer(modifier = Modifier.fillMaxWidth().height(8.dp))
+            Spacer(modifier = Modifier.fillMaxWidth().height(12.dp))
         }
     }
 }
