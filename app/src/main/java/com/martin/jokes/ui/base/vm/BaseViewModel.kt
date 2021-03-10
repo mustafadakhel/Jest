@@ -23,9 +23,9 @@ abstract class BaseViewModel : ViewModel() {
 
 	fun <T> Request<T>.start() {
 		viewModelScope.launch(Dispatchers.IO) {
-			request
-				?.invoke()
+			request?.invoke()
 				?.putInto(consumer)
+				?.broadcast(this@start)
 		}
 	}
 
@@ -33,10 +33,14 @@ abstract class BaseViewModel : ViewModel() {
 		return Request<T>().load(call)
 	}
 
-	private fun <T> CallResult<T>?.putInto(consumer: MutableStateFlow<CallResult<T>>?) {
-		this?.let {
-			consumer?.tryEmit(it)
-		}
+	private fun <T> CallResult<T>.putInto(consumer: MutableStateFlow<CallResult<T>>?): CallResult<T>? {
+		consumer?.tryEmit(this)
+		return this
+	}
+
+	private suspend fun <T> CallResult<T>.broadcast(request: Request<T>): CallResult<T>? {
+		request.onSuccess?.invoke(this)
+		return this
 	}
 }
 

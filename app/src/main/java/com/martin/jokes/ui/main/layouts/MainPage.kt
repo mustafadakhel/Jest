@@ -11,12 +11,12 @@ import com.martin.jokes.ui.main.vm.MainViewModel
 
 @Composable
 fun MainPage(viewModel: MainViewModel, listener: MainPageListener) {
-	val jokes = viewModel.jokes.collectAsState()
+	val jokes = viewModel.jokes.collectAsState().value
 	MaterialTheme() {
-		Status(status = jokes.value, listener = listener) {
+		Status(status = jokes, listener = listener) {
 			JokesList(
 				modifier = Modifier.fillMaxSize(),
-				jokes = jokes.value.dataOr(mutableListOf()),
+				jokes = jokes.dataOr(mutableListOf()),
 				onJokeClicked = listener::onJokeClicked
 			)
 		}

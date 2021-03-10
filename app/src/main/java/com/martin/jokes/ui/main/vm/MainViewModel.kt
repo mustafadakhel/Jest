@@ -1,18 +1,18 @@
 package com.martin.jokes.ui.main.vm
 
+import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
 import com.martin.jokes.models.Joke
-import com.martin.jokes.models.result.CallResult
 import com.martin.jokes.repos.main.MainRepository
 import com.martin.jokes.ui.base.vm.BaseViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
+import com.martin.jokes.utils.extensions.mutableStateFlow
 import javax.inject.Singleton
 
 @Singleton
 class MainViewModel @ViewModelInject constructor(private val mainRepository: MainRepository) :
 	BaseViewModel() {
 
-	var jokes = MutableStateFlow<CallResult<MutableList<Joke>>>(CallResult.Empty())
+	var jokes = mutableStateFlow<MutableList<Joke>>()
 
 	init {
 		getJokes()
@@ -21,6 +21,9 @@ class MainViewModel @ViewModelInject constructor(private val mainRepository: Mai
 	fun getJokes() {
 		load(mainRepository::tenRandomJokes)
 			.into(jokes)
+			.watch {
+				Log.i(javaClass.simpleName, "success")
+			}
 			.start()
 	}
 

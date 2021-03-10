@@ -4,10 +4,7 @@ import com.martin.jokes.api.JokesApi
 import com.martin.jokes.models.Joke
 import com.martin.jokes.models.result.CallResult
 import com.martin.jokes.utils.extensions.mapToResult
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.withContext
+import com.martin.jokes.utils.extensions.supervisedCall
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -22,18 +19,4 @@ class MainRepository @Inject constructor(
 				.mapToResult()
 		}
 	}
-}
-
-suspend fun <T> supervisedCall(block: suspend CoroutineScope.() -> CallResult<T>): CallResult<T> {
-	var result: CallResult<T> = CallResult.Loading()
-	runCatching {
-		withContext(IO + SupervisorJob()) {
-			block()
-		}
-	}.onFailure {
-		result = CallResult.Error(throwable = it)
-	}.onSuccess {
-		result = it
-	}
-	return result
 }
