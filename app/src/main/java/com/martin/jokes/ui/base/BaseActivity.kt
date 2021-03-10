@@ -1,19 +1,19 @@
 package com.martin.jokes.ui.base
 
 import android.os.Bundle
+import android.view.Window
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import com.martin.jokes.vm.base.BaseViewModel
 
-
-@Suppress("MemberVisibilityCanBePrivate")
 abstract class BaseActivity : ComponentActivity() {
 
     abstract val viewModel: BaseViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestWindowFeature(Window.FEATURE_NO_TITLE)
         setContent { Create() }
     }
 
