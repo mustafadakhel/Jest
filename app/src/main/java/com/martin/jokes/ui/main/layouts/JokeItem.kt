@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -28,7 +29,7 @@ fun JokeItem(
             Spacer(modifier = Modifier.fillMaxWidth().height(8.dp))
             Text(
                 text = joke.toString(),
-                modifier = Modifier.fillMaxWidth(0.9f),
+                modifier = Modifier.fillMaxWidth(0.9f).align(Alignment.CenterHorizontally),
                 textAlign = TextAlign.Center
             )
             Spacer(modifier = Modifier.fillMaxWidth().height(8.dp))
