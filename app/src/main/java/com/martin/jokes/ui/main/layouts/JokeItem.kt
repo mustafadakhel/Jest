@@ -27,7 +27,7 @@ fun JokeItem(
         elevation = 4.dp
     ) {
         Text(
-            text = joke.toString(),
+            text = joke.setup,
             modifier = Modifier.fillMaxWidth().padding(16.dp, 16.dp),
             textAlign = TextAlign.Center
         )
