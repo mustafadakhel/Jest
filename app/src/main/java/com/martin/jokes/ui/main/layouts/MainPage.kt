@@ -1,21 +1,17 @@
 package com.martin.jokes.ui.main.layouts
 
-import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
-import com.martin.jokes.ui.main.listener.MainPageListener
+import androidx.navigation.NavController
+import androidx.navigation.compose.navigate
 import com.martin.jokes.ui.main.vm.MainViewModel
 
 @Composable
-fun MainPage(viewModel: MainViewModel, listener: MainPageListener) {
-//	val jokes = viewModel.jokes.collectAsState().value
+fun MainPage(viewModel: MainViewModel, navController: NavController) {
 	val jokesFlow = viewModel.pagedJokes
-//	val scrollState = viewModel.scrollState
-	MaterialTheme() {
-//		Status(status = pagedJokes, listener = listener) {
-			JokesList(
-				jokesFlow = jokesFlow,
-				onJokeClicked = listener::onJokeClicked
-			)
-//		}
-	}
+	JokesList(
+		jokesFlow = jokesFlow,
+		onJokeClicked = {
+			navController.navigate("jokes/${it.setup}/${it.punchline}/${it.type}")
+		}
+	)
 }

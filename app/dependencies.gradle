@@ -17,5 +17,6 @@ dependencies {
     implementation "androidx.compose.material:material:$versions.compose"
     implementation "androidx.activity:activity-compose:$versions.activityCompose"
     implementation "androidx.paging:paging-compose:$versions.pagingCompose"
+    implementation "androidx.navigation:navigation-compose:$versions.navigationCompose"
 
 }
