@@ -3,6 +3,7 @@ package com.martin.jokes.models
 import android.os.Bundle
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import com.martin.jokes.ui.main.vm.ColorPair
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -14,7 +15,8 @@ data class Joke(
 	@SerializedName("setup")
 	var setup: String = "",
 	@SerializedName("type")
-	var type: String = ""
+	var type: String = "",
+	var colorPair: ColorPair = ColorPair()
 ) : Parcelable {
 
 	override fun toString(): String {

@@ -1,5 +1,6 @@
 package com.martin.jokes.ui.main.layouts
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import androidx.navigation.compose.navigate

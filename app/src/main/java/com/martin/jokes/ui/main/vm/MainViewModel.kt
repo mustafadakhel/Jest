@@ -1,5 +1,6 @@
 package com.martin.jokes.ui.main.vm
 
+import androidx.compose.ui.graphics.Color
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData

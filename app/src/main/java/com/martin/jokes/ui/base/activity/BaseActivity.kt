@@ -9,6 +9,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import com.martin.jokes.ui.base.vm.BaseViewModel
 
 abstract class BaseActivity : ComponentActivity() {
@@ -20,7 +21,7 @@ abstract class BaseActivity : ComponentActivity() {
 		requestWindowFeature(Window.FEATURE_NO_TITLE)
 		setContent {
 			MaterialTheme {
-				Surface(modifier = Modifier.fillMaxSize()) {
+				Surface(modifier = Modifier.fillMaxSize(), color = Color.Black.copy(alpha = 0.85f)) {
 					Create()
 				}
 			}
