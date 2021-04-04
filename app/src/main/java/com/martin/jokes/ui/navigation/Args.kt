@@ -11,4 +11,8 @@ val jokeArgs: List<NamedNavArgument>
 		type = NavType.StringType
 	}, navArgument("type") {
 		type = NavType.StringType
+	}, navArgument("textColor") {
+		type = NavType.IntType
+	}, navArgument("backgroundColor") {
+		type = NavType.IntType
 	})

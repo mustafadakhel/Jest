@@ -1,7 +1,7 @@
 package com.martin.jokes.ui.main.layouts
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.toArgb
 import androidx.navigation.NavController
 import androidx.navigation.compose.navigate
 import com.martin.jokes.ui.main.vm.MainViewModel
@@ -12,7 +12,7 @@ fun MainPage(viewModel: MainViewModel, navController: NavController) {
 	JokesList(
 		jokesFlow = jokesFlow,
 		onJokeClicked = {
-			navController.navigate("jokes/${it.setup}/${it.punchline}/${it.type}")
+			navController.navigate("jokes/${it.setup}/${it.punchline}/${it.type}/${it.colorPair.textColor.toArgb()}/${it.colorPair.backgroundColor.toArgb()}")
 		}
 	)
 }
