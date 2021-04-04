@@ -14,7 +14,8 @@ dependencies {
     kapt "androidx.hilt:hilt-compiler:$versions.hiltJitPack"
 
     //compose
-    implementation "androidx.activity:activity-compose:$versions.activityCompose"
     implementation "androidx.compose.material:material:$versions.compose"
+    implementation "androidx.activity:activity-compose:$versions.activityCompose"
+    implementation "androidx.paging:paging-compose:$versions.pagingCompose"
 
 }

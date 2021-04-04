@@ -4,13 +4,13 @@ import com.martin.jokes.models.result.CallResult
 import kotlinx.coroutines.flow.MutableStateFlow
 
 @Suppress("unused")
-class Request<T> {
+open class Request<T> {
 	var request: (suspend () -> CallResult<T>)? = null
 	var onSuccess: (suspend (data: CallResult<T>) -> Unit)? = null
 	var consumer: MutableStateFlow<CallResult<T>>? = null
 
-	fun into(consumer: MutableStateFlow<CallResult<T>>): Request<T> {
-		consumer.tryEmit(CallResult.Loading())
+	open fun into(consumer: MutableStateFlow<CallResult<T>>): Request<T> {
+		consumer.tryEmit(CallResult.loading(consumer.value.getOrNull()))
 		this.consumer = consumer
 		return this
 	}

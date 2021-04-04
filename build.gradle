@@ -3,10 +3,10 @@ buildscript {
 
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:$versions.gradleTools"
+        classpath "com.android.tools.build:gradle:4.2.0-beta06"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
         classpath "com.google.dagger:hilt-android-gradle-plugin:$versions.hilt"
     }
@@ -15,7 +15,13 @@ buildscript {
 allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
+        //noinspection JcenterRepositoryObsolete
+        jcenter {
+            content {
+                includeModule("org.jetbrains.kotlinx", "kotlinx-collections-immutable-jvm")
+            }
+        }
     }
 }
 

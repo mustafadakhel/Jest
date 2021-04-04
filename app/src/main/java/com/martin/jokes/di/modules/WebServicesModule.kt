@@ -5,7 +5,7 @@ import com.martin.jokes.api.JokesApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Suppress("unused")
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 @Module
 class WebServicesModule {
 

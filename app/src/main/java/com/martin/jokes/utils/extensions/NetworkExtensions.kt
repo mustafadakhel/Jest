@@ -7,20 +7,20 @@ import kotlinx.coroutines.supervisorScope
 fun <T> T?.mapToResult(): CallResult<T> {
 	return this?.let { safeData: T ->
 		if (safeData is Collection<*> && safeData.isEmpty())
-			CallResult.Empty(safeData)
+			CallResult.empty(safeData)
 		else
-			CallResult.Success(safeData)
+			CallResult.success(safeData)
 	} ?: run {
-		CallResult.Error(throwable = Throwable("null response"))
+		CallResult.failure(throwable = Throwable("null response"))
 	}
 }
 
 suspend fun <T> supervisedCall(block: suspend CoroutineScope.() -> CallResult<T>): CallResult<T> {
-	var result: CallResult<T> = CallResult.Loading()
+	var result: CallResult<T> = CallResult.loading()
 	runCatching {
 		supervisorScope(block)
 	}.onFailure {
-		result = CallResult.Error(throwable = it)
+		result = CallResult.failure(throwable = it)
 	}.onSuccess {
 		result = it
 	}

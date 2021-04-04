@@ -12,11 +12,11 @@ import com.martin.jokes.ui.base.listener.BaseListener
 @Composable
 fun <T> Status(status: CallResult<T>, listener: BaseListener, Success: @Composable () -> Unit) {
 	Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-		when (status) {
-			is CallResult.Empty -> Empty()
-			is CallResult.Loading -> CircularProgressIndicator()
-			is CallResult.Success -> Success()
-			is CallResult.Error -> Error(listener::onReload)
+		when {
+			status.isEmpty -> Empty()
+			status.isLoading -> CircularProgressIndicator()
+			status.isSuccess -> Success()
+			status.isFailure -> Error(listener::onReload)
 		}
 	}
 }

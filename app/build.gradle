@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-parcelize'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
+    id 'org.jetbrains.kotlin.android'
 }
 apply from: "dependencies.gradle"
 
@@ -16,8 +17,6 @@ android {
     flavorDimensions "JokesApi"
 
     buildFeatures {
-        dataBinding true
-        viewBinding true
         compose true
     }
 
@@ -69,6 +68,6 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion '1.0.0-beta01'
+        kotlinCompilerExtensionVersion '1.0.0-beta03'
     }
 }

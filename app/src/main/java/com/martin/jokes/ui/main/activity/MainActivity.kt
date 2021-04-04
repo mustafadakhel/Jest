@@ -26,6 +26,6 @@ class MainActivity : BaseActivity(), MainPageListener {
 	}
 
 	override fun onReload() {
-		viewModel.getJokes()
+//		viewModel.getJokes()
 	}
 }

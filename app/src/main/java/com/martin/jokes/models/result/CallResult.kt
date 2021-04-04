@@ -1,33 +1,54 @@
 package com.martin.jokes.models.result
 
+import java.io.Serializable
 
-sealed class CallResult<T>(open var data: T? = null) {
+open class CallResult<T>(
+	var data: Any?
+) : Serializable {
 
-	data class Success<T>(override var data: T?) : CallResult<T>(data)
+	val isEmpty: Boolean get() = data is Empty<*>
+	val isLoading: Boolean get() = data is Loading<*>
+	val isSuccess: Boolean get() = data is Success<*>
+	val isFailure: Boolean get() = data is Failure
 
-	data class Error<T>(
-		override var data: T? = null,
-		var throwable: Throwable? = null
-	) : CallResult<T>(data)
+	fun getOrNull(): T? =
+		when {
+			isFailure || isEmpty -> null
+			data is Success<*> -> (data as? Success<*>)?.data as? T?
+			data is Loading<*> -> (data as? Loading<*>)?.data as? T?
+			else -> null
+		}
 
-	data class Loading<T>(override var data: T? = null) : CallResult<T>(data)
+	fun getOr(data: T): T = getOrNull() ?: data
 
-	data class Empty<T>(override var data: T? = null) : CallResult<T>(data)
+	override fun toString(): String =
+		when (data) {
+			isSuccess -> "Success($data)"
+			isLoading -> "Loading($data)"
+			isFailure -> "Failure($data)"
+			else -> "Empty($data)"
+		}
 
-	fun dataOr(default: T): T {
-		return data ?: default
+
+	companion object {
+		fun <T> empty(data: T? = null): CallResult<T> =
+			CallResult(Empty(data))
+
+		fun <T> loading(data: T? = null): CallResult<T> =
+			CallResult(Loading(data))
+
+		fun <T> success(data: T): CallResult<T> =
+			CallResult(Success(data))
+
+		fun <T> failure(throwable: Throwable): CallResult<T> =
+			CallResult(Failure(throwable))
 	}
 
-	val isLoading
-		get() = this is Loading
+	class Empty<T>(newData: T?) : CallResult<T?>(newData)
 
-	val isEmpty
-		get() = this is Empty
+	class Loading<T>(newData: T?) : CallResult<T?>(newData)
 
-	val isError
-		get() = this is Error
+	class Success<T>(newData: T?) : CallResult<T?>(newData)
 
-	val isSuccess
-		get() = this is Success
-
+	class Failure(throwable: Throwable) : CallResult<Throwable>(throwable)
 }

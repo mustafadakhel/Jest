@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.martin.jokes.models.result.CallResult
 import com.martin.jokes.utils.Request
+import com.martin.jokes.utils.extensions.isLoading
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -11,7 +12,6 @@ import kotlinx.coroutines.launch
 
 @Suppress("MemberVisibilityCanBePrivate")
 abstract class BaseViewModel : ViewModel() {
-
 
 	var jobs: MutableList<Job>? = mutableListOf()
 
@@ -23,9 +23,11 @@ abstract class BaseViewModel : ViewModel() {
 
 	fun <T> Request<T>.start() {
 		viewModelScope.launch(Dispatchers.IO) {
-			request?.invoke()
-				?.putInto(consumer)
-				?.broadcast(this@start)
+			if (consumer.isLoading.not()) {
+				request?.invoke()
+					?.putInto(consumer)
+					?.broadcast(this@start)
+			}
 		}
 	}
 
@@ -33,12 +35,12 @@ abstract class BaseViewModel : ViewModel() {
 		return Request<T>().load(call)
 	}
 
-	private fun <T> CallResult<T>.putInto(consumer: MutableStateFlow<CallResult<T>>?): CallResult<T>? {
+	private fun <T> CallResult<T>.putInto(consumer: MutableStateFlow<CallResult<T>>?): CallResult<T> {
 		consumer?.tryEmit(this)
 		return this
 	}
 
-	private suspend fun <T> CallResult<T>.broadcast(request: Request<T>): CallResult<T>? {
+	private suspend fun <T> CallResult<T>.broadcast(request: Request<T>): CallResult<T> {
 		request.onSuccess?.invoke(this)
 		return this
 	}
