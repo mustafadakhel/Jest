@@ -1,6 +1,7 @@
 package com.martin.jokes.ui.main.layouts
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -18,9 +19,7 @@ fun JokeItem(
     onJokeClicked: (joke: Joke) -> Unit
 ) {
     Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .wrapContentHeight()
+        modifier = Modifier.fillMaxSize().padding(8.dp)
             .clickable {
                 onJokeClicked(joke)
             },
