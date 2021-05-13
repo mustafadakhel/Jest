@@ -67,8 +67,7 @@ class JokeSource(
 	private fun sameColors(randomColor: ColorPair, colorPair: ColorPair?): Boolean {
 		val firstColor = randomColor.backgroundColor.toString()
 		val secondColor = colorPair?.backgroundColor?.toString()
-		val same = firstColor == secondColor
-		return same
+		return firstColor == secondColor
 	}
 
 	private fun getRandomColorPair(): ColorPair {
