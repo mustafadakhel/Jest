@@ -4,12 +4,12 @@ import android.os.Parcelable
 import androidx.compose.ui.graphics.Color
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import com.martin.jokes.api.JokesApi
 import com.martin.jokes.models.Joke
-import com.martin.jokes.repos.main.MainRepository
 import kotlinx.parcelize.Parcelize
 
 class JokeSource(
-	private val mainRepository: MainRepository
+	private val mainRepository: JokesApi
 ) : PagingSource<Int, Joke>() {
 
 	private val colors = listOf(
@@ -25,25 +25,23 @@ class JokeSource(
 	override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Joke> {
 		return try {
 			val nextPage = params.key ?: 1
-			val jokesListResponse = mainRepository.tenRandomJokes()
+			val jokesListResponse = mainRepository.getTenRandomJokes()
 
-			val jokesList = jokesListResponse.getOr(mutableListOf())
-			jokesList.onEachIndexed { index, joke ->
+			jokesListResponse.onEachIndexed { index, joke ->
 				if (joke.colorPair.backgroundColor == Color(0)) {
-					val randomColor = getRandomColorPairNoRepeat(jokesList, index)
+					val randomColor = getRandomColorPairNoRepeat(jokesListResponse, index)
 					joke.colorPair = randomColor
 				}
 			}
 
 			LoadResult.Page(
-				data = jokesList,
+				data = jokesListResponse,
 				prevKey = if (nextPage == 1) null else nextPage - 1,
 				nextKey = nextPage.plus(1)
 			)
 		} catch (e: Exception) {
 			LoadResult.Error(e)
 		}
-
 	}
 
 	private fun getRandomColorPairNoRepeat(jokesList: MutableList<Joke>, index: Int): ColorPair {

@@ -3,12 +3,16 @@ package com.martin.jokes.models
 import android.os.Bundle
 import android.os.Parcelable
 import androidx.compose.ui.graphics.Color
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import com.martin.jokes.ui.main.vm.ColorPair
 import kotlinx.parcelize.Parcelize
 
+@Entity
 @Parcelize
 data class Joke(
+	@PrimaryKey(autoGenerate = false)
 	@SerializedName("id")
 	var id: Int = 0,
 	@SerializedName("punchline")
