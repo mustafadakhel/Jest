@@ -10,6 +10,8 @@ import com.martin.jokes.api.JokesApi
 import com.martin.jokes.db.JokesDB
 import com.martin.jokes.models.Joke
 import com.martin.jokes.models.RemoteKeys
+import com.martin.jokes.utils.extensions.closestItemToAnchor
+import com.martin.jokes.utils.extensions.log
 import java.util.*
 
 const val DEFAULT_PAGE_INDEX = 1
@@ -42,6 +44,7 @@ class JokeMediator(private val jokesApi: JokesApi, private val jokesDB: JokesDB)
 			}
 			MediatorResult.Success(false)
 		} catch (e: Exception) {
+			e.log()
 			return MediatorResult.Error(e)
 		}
 	}
@@ -67,21 +70,18 @@ class JokeMediator(private val jokesApi: JokesApi, private val jokesDB: JokesDB)
 	}
 
 	private suspend fun getLastRemoteKey(state: PagingState<Int, Joke>): RemoteKeys? {
-		return state.lastItemOrNull()?.let { joke ->
+		return state.lastItemOrNull()?.remoteKey()
+	}
+
+	private suspend fun getClosestRemoteKey(state: PagingState<Int, Joke>): RemoteKeys? {
+		return state.closestItemToAnchor().remoteKey()
+	}
+
+	private suspend fun Joke?.remoteKey(): RemoteKeys? {
+		return this?.let { joke ->
 			jokesDB.withTransaction {
 				jokesDB.remoteKeysDao.remoteKeysByJokeId(joke.id)
 			}
 		}
 	}
-
-	private suspend fun getClosestRemoteKey(state: PagingState<Int, Joke>): RemoteKeys? {
-		return state.anchorPosition?.let { position ->
-			state.closestItemToPosition(position)?.id?.let { repoId ->
-				jokesDB.withTransaction {
-					jokesDB.remoteKeysDao.remoteKeysByJokeId(repoId)
-				}
-			}
-		}
-	}
-
 }
