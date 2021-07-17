@@ -1,10 +1,8 @@
 package com.martin.jokes.di.modules
 
 import androidx.paging.ExperimentalPagingApi
-import androidx.paging.PagingSource
 import com.martin.jokes.api.JokesApi
 import com.martin.jokes.db.JokesDB
-import com.martin.jokes.models.Joke
 import com.martin.jokes.ui.main.vm.JokesMediator
 import dagger.Module
 import dagger.Provides
@@ -23,18 +21,4 @@ class PagingModule {
 		return JokesMediator(jokesApi, jokesDB)
 	}
 
-	@OptIn(ExperimentalPagingApi::class)
-	@Singleton
-	@Provides
-	fun provideJokesPagingSource(jokesDB: JokesDB): PagingSourceFactory<Int, Joke> {
-		return object : PagingSourceFactory<Int, Joke> {
-			override fun create(): PagingSource<Int, Joke> {
-				return jokesDB.jokesDao.getAllTheJokesPaged()
-			}
-		}
-	}
-}
-
-interface PagingSourceFactory<Key : Any, Value : Any> {
-	fun create(): PagingSource<Key, Value>
 }

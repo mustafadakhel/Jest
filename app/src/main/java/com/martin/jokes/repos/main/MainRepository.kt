@@ -3,7 +3,7 @@ package com.martin.jokes.repos.main
 import android.os.Parcelable
 import androidx.compose.ui.graphics.Color
 import androidx.paging.*
-import com.martin.jokes.di.modules.PagingSourceFactory
+import com.martin.jokes.db.JokesDB
 import com.martin.jokes.models.Joke
 import com.martin.jokes.ui.main.vm.JokesMediator
 import kotlinx.coroutines.flow.Flow
@@ -19,7 +19,7 @@ const val DEFAULT_PAGE_SIZE = 10
 @OptIn(ExperimentalPagingApi::class)
 class MainRepository @Inject constructor(
 	private val jokesMediator: JokesMediator,
-	private val jokesPagingSource: PagingSourceFactory<Int, Joke>
+	private val jokesDB: JokesDB
 ) {
 
 	private val colors = listOf(
@@ -35,7 +35,7 @@ class MainRepository @Inject constructor(
 	fun letTheJokesFlow(pagingConfig: PagingConfig = getDefaultPageConfig()): Flow<PagingData<Joke>> {
 		return Pager(
 			config = pagingConfig,
-			pagingSourceFactory = { jokesPagingSource.create() },
+			pagingSourceFactory = { jokesDB.jokesDao.getAllTheJokesPaged() },
 			remoteMediator = jokesMediator,
 		).flow.addColors()
 	}
