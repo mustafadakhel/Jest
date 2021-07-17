@@ -3,10 +3,9 @@ package com.martin.jokes.repos.main
 import android.os.Parcelable
 import androidx.compose.ui.graphics.Color
 import androidx.paging.*
-import com.martin.jokes.api.JokesApi
-import com.martin.jokes.db.JokesDB
+import com.martin.jokes.di.modules.PagingSourceFactory
 import com.martin.jokes.models.Joke
-import com.martin.jokes.ui.main.vm.JokeMediator
+import com.martin.jokes.ui.main.vm.JokesMediator
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.parcelize.Parcelize
@@ -17,9 +16,10 @@ import kotlin.random.Random
 const val DEFAULT_PAGE_SIZE = 10
 
 @Singleton
+@OptIn(ExperimentalPagingApi::class)
 class MainRepository @Inject constructor(
-	private val jokesApi: JokesApi,
-	private val jokesDB: JokesDB
+	private val jokesMediator: JokesMediator,
+	private val jokesPagingSource: PagingSourceFactory<Int, Joke>
 ) {
 
 	private val colors = listOf(
@@ -32,15 +32,11 @@ class MainRepository @Inject constructor(
 		ColorPair(backgroundColor, textColor)
 	}
 
-	@OptIn(ExperimentalPagingApi::class)
 	fun letTheJokesFlow(pagingConfig: PagingConfig = getDefaultPageConfig()): Flow<PagingData<Joke>> {
-		val pagingSourceFactory = {
-			jokesDB.jokesDao.getAllTheJokesPaged()
-		}
 		return Pager(
 			config = pagingConfig,
-			pagingSourceFactory = pagingSourceFactory,
-			remoteMediator = JokeMediator(jokesApi, jokesDB),
+			pagingSourceFactory = { jokesPagingSource.create() },
+			remoteMediator = jokesMediator,
 		).flow.addColors()
 	}
 

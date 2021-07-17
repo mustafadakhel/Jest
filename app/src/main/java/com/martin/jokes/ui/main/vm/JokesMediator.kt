@@ -17,7 +17,7 @@ import java.util.*
 const val DEFAULT_PAGE_INDEX = 1
 
 @ExperimentalPagingApi
-class JokeMediator(private val jokesApi: JokesApi, private val jokesDB: JokesDB) :
+class JokesMediator(private val jokesApi: JokesApi, private val jokesDB: JokesDB) :
 	RemoteMediator<Int, Joke>() {
 
 	override suspend fun load(
