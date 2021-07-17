@@ -23,7 +23,6 @@ class JokesMediator(private val jokesApi: JokesApi, private val jokesDB: JokesDB
 	override suspend fun load(
 		loadType: LoadType, state: PagingState<Int, Joke>
 	): MediatorResult {
-		Log.i("MartinDakhel", "load")
 		val page = getKeyPageData(loadType, state) ?: run {
 			return MediatorResult.Success(false)
 		}
