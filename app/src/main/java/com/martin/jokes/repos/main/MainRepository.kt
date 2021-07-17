@@ -63,7 +63,7 @@ fun getDefaultPageConfig(): PagingConfig {
 	return PagingConfig(
 		pageSize = DEFAULT_PAGE_SIZE,
 		enablePlaceholders = true,
-		prefetchDistance = DEFAULT_PAGE_SIZE,
+		prefetchDistance = DEFAULT_PAGE_SIZE * 2,
 		initialLoadSize = DEFAULT_PAGE_SIZE
 	)
 }
