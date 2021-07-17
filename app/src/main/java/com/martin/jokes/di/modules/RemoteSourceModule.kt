@@ -15,7 +15,7 @@ import javax.inject.Singleton
 @Suppress("unused")
 @InstallIn(SingletonComponent::class)
 @Module
-class WebServicesModule {
+class RemoteSourceModule {
 
     @Singleton
     @Provides
