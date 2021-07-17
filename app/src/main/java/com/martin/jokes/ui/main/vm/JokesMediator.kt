@@ -25,7 +25,7 @@ class JokesMediator(private val jokesApi: JokesApi, private val jokesDB: JokesDB
 	): MediatorResult {
 		Log.i("MartinDakhel", "load")
 		val page = getKeyPageData(loadType, state) ?: run {
-			return MediatorResult.Success(true)
+			return MediatorResult.Success(false)
 		}
 		return try {
 			val jokesListResponse = jokesApi.getTenRandomJokes().setAddedDate()
@@ -51,7 +51,7 @@ class JokesMediator(private val jokesApi: JokesApi, private val jokesDB: JokesDB
 
 	private fun List<Joke>.setAddedDate(): List<Joke> {
 		return onEach {
-			val rightNow: Calendar = Calendar.getInstance()
+			val rightNow = Calendar.getInstance()
 			it.added = rightNow.timeInMillis
 		}
 	}
