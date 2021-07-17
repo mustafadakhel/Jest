@@ -1,3 +1,3 @@
 -optimizationpasses 10
 -keeppackagenames doNotKeepAThing
--repackageclasses 'com.martin.jokes'
+-repackageclasses 'com.martin.jest'

@@ -21,7 +21,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.martin.jokes"
+        applicationId "com.martin.jest"
         targetSdkVersion versions.targetSdk
         multiDexEnabled true
         resConfigs versions.resConfigs
@@ -48,7 +48,7 @@ android {
     buildTypes {
         release {
             minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'jokes-proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'jest-proguard-rules.pro'
             zipAlignEnabled true
             debuggable false
             shrinkResources true
