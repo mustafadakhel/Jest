@@ -1,8 +1,7 @@
 package com.martin.jokes.ui.main.layouts
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -22,28 +21,37 @@ fun JokeItem(
 	onJokeClicked: (joke: Joke) -> Unit
 ) {
 	Card(
-		modifier = Modifier.fillMaxSize().padding(8.dp)
+		modifier = Modifier
+			.wrapContentHeight()
+			.fillMaxWidth()
+			.padding(16.dp, 8.dp)
 			.clickable {
 				onJokeClicked(joke)
 			},
 		shape = RoundedCornerShape(4.dp),
+		backgroundColor = joke.colorPair.backgroundColor,
 		elevation = 0.dp
 	) {
-		Text(
-			text = joke.setup,
-			modifier = Modifier.fillMaxSize().background(joke.colorPair.backgroundColor)
-				.padding(top = 42.dp, bottom = 72.dp, end = 22.dp, start = 22.dp),
-			textAlign = TextAlign.Start,
-			fontSize = 18.sp,
-			color = joke.colorPair.textColor
-		)
-		Text(
-			text = joke.type,
-			modifier = Modifier.fillMaxWidth().wrapContentHeight()
-				.padding(top = 16.dp, start = 16.dp),
-			textAlign = TextAlign.Start,
-			fontSize = 12.sp,
-			color = joke.colorPair.textColor.copy(alpha = 0.5f)
-		)
+		Column(modifier = Modifier.padding(12.dp)) {
+			Text(
+				text = joke.type,
+				modifier = Modifier.padding(top = 16.dp, start = 16.dp),
+				textAlign = TextAlign.Start,
+				fontSize = 12.sp,
+				color = joke.colorPair.textColor.copy(alpha = 0.5f)
+			)
+			Text(
+				text = joke.setup,
+				modifier = Modifier.padding(
+					top = 8.dp,
+					bottom = 32.dp,
+					end = 16.dp,
+					start = 16.dp
+				),
+				textAlign = TextAlign.Start,
+				fontSize = 18.sp,
+				color = joke.colorPair.textColor
+			)
+		}
 	}
 }

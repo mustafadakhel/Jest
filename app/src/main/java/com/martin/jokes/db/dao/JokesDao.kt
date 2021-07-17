@@ -11,12 +11,12 @@ import com.martin.jokes.models.Joke
 interface JokesDao {
 
 	@Insert(onConflict = OnConflictStrategy.REPLACE)
-	suspend fun insertAll(doggoModel: List<Joke>)
+	suspend fun insertAll(jokes: List<Joke>)
 
-	@Query("SELECT * FROM joke")
-	fun getAllDoggoModel(): PagingSource<Int, Joke>
+	@Query("SELECT * FROM joke ORDER BY added")
+	fun getAllTheJokesPaged(): PagingSource<Int, Joke>
 
 	@Query("DELETE FROM joke")
-	suspend fun clearAllDoggos()
+	suspend fun clearAllJokes()
 
 }

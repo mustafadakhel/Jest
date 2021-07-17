@@ -14,6 +14,8 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(mainRepository: MainRepository) :
 	BaseViewModel() {
 
-	val pagedJokes: Flow<PagingData<Joke>> = mainRepository.letJokesFlow().cachedIn(viewModelScope)
+	val pagedJokes: Flow<PagingData<Joke>> by lazy {
+		mainRepository.letTheJokesFlow().cachedIn(viewModelScope)
+	}
 
 }

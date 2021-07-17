@@ -4,9 +4,10 @@ import android.os.Bundle
 import android.os.Parcelable
 import androidx.compose.ui.graphics.Color
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
-import com.martin.jokes.ui.main.vm.ColorPair
+import com.martin.jokes.repos.main.ColorPair
 import kotlinx.parcelize.Parcelize
 
 @Entity
@@ -21,6 +22,8 @@ data class Joke(
 	var setup: String = "",
 	@SerializedName("type")
 	var type: String = "",
+	var added: Long = 0L,
+	@Ignore
 	var colorPair: ColorPair = ColorPair()
 ) : Parcelable {
 

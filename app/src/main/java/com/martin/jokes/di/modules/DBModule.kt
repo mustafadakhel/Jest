@@ -1,6 +1,6 @@
 package com.martin.jokes.di.modules
 
-import android.content.Context
+import android.app.Application
 import androidx.room.Room
 import com.martin.jokes.db.JOKES_DB
 import com.martin.jokes.db.JokesDB
@@ -17,8 +17,8 @@ import javax.inject.Singleton
 class DBModule {
 	@Singleton
 	@Provides
-	internal fun provideDatabase(context: Context): JokesDB {
-		return Room.databaseBuilder(context, JokesDB::class.java, JOKES_DB).build()
+	internal fun provideDatabase(application: Application): JokesDB {
+		return Room.databaseBuilder(application.applicationContext, JokesDB::class.java, JOKES_DB).build()
 	}
 
 	@Singleton
